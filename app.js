@@ -4,6 +4,7 @@ const {PORT} = require('./config/env');
 const userRouter = require('./routes/user.routes');
 const authRouter = require('./routes/auth.routes');
 const subscriptionRouter = require('./routes/subscription.routes');
+const connectToDB = require('./database/mongodb');
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
@@ -13,8 +14,9 @@ app.get('/', (req, res)=> {
     res.send('Welcome to the subscription tracker');
 });
 
-app.listen(PORT , () => {
+app.listen(PORT , async () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
+    await connectToDB();
 });
 
 module.exports = app;

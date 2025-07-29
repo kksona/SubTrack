@@ -1,20 +1,9 @@
 const express = require("express");
 const authRouter = express.Router();
+const { signIn, signOut, signUp } = require("../controllers/auth.controller");
 
-authRouter.post("/sign-in", (req, res) => {
-  res.send({
-    message: "Sign in route",
-  });
-});
-authRouter.post("/sign-up", (req, res) => {
-  res.send({
-    message: "Sign up route",
-  });
-});
-authRouter.post("/sign-out", (req, res) => {
-  res.send({
-    message: "Sign out route",
-  });
-});
+authRouter.post("/sign-in", signIn);
+authRouter.post("/sign-up", signUp);
+authRouter.post("/sign-out", signOut);
 
 module.exports = authRouter;

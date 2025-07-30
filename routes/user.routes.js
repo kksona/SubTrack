@@ -1,15 +1,9 @@
 const userRouter = require("express").Router();
+const { getAllUsers, getUserById } = require("../controllers/users.controller");
+const authorize = require("../middlewares/auth.middleware");
 
-userRouter.get("/", (req, res) => {
-  res.send({
-    message: "GET all users",
-  });
-});
-userRouter.get("/:id", (req, res) => {
-  res.send({
-    message: "GET a unique user",
-  });
-});
+userRouter.get("/", getAllUsers);
+userRouter.get("/:id", authorize, getUserById);
 userRouter.post("/", (req, res) => {
   res.send({
     message: "CREATE a new user",

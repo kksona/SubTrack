@@ -6,11 +6,13 @@ const authRouter = require("./routes/auth.routes");
 const subscriptionRouter = require("./routes/subscription.routes");
 const connectToDB = require("./database/mongodb");
 const cookieParser = require("cookie-parser");
+const rateLimiter = require("./middlewares/ratelimiter.middleware");
 
 //built-in middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(rateLimiter);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);

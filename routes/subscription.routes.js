@@ -1,4 +1,6 @@
 const subscriptionRouter = require("express").Router();
+const authorize = require('../middlewares/auth.middleware');
+const {getUserSubscriptions, createSubcription} = require('../controllers/subscription.controller')
 
 subscriptionRouter.get("/", (req, res) => {
   res.send({
@@ -12,11 +14,7 @@ subscriptionRouter.get("/:id", (req, res) => {
   });
 });
 
-subscriptionRouter.post("/", (req, res) => {
-  res.send({
-    message: "CREATE a new subscription",
-  });
-});
+subscriptionRouter.post("/", authorize, createSubcription);
 
 subscriptionRouter.put("/:id", (req, res) => {
   res.send({
@@ -30,11 +28,7 @@ subscriptionRouter.delete("/", (req, res) => {
   });
 });
 
-subscriptionRouter.get("/user/:id", (req, res) => {
-  res.send({
-    message: "GET all subscriptions of a unique user",
-  });
-});
+subscriptionRouter.get("/user/:id", authorize, getUserSubscriptions);
 
 subscriptionRouter.get("/:id/cancel", (req, res) => {
   res.send({
